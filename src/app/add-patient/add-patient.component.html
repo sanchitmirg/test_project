@@ -1,0 +1,37 @@
+<td-layout-nav-list #adminList toolbarTitle="Application" color="accent" [opened]="media.registerQuery('gt-sm') | async"
+  [mode]="(media.registerQuery('gt-sm') | async) ? 'side' : 'push'" [sidenavWidth]="(media.registerQuery('gt-xs') | async) ? '257px' : '100%'">
+  <md-toolbar td-sidenav-content>
+    <span>Patient Information</span>
+  </md-toolbar>
+  <md-nav-list td-sidenav-content>
+    <a md-list-item md-ripple class="block relative" (click)="!media.query('gt-sm') && adminList.close()" [routerLinkActive]="['active']"
+      [routerLinkActiveOptions]="{exact:true}" [routerLink]="['/personaldetails']">
+      <md-icon md-list-icon>dashboard</md-icon>
+      Personal Details
+    </a>
+    <a md-list-item md-ripple class="block relative" (click)="!media.query('gt-sm') && adminList.close()" [routerLinkActive]="['active']"
+      [routerLinkActiveOptions]="{exact:false}" [routerLink]="['addressdetails']">
+      <md-icon md-list-icon>people</md-icon>
+      Address Details
+    </a>
+
+    <a md-list-item (click)="!media.query('gt-sm') && adminList.close()" md-ripple class="block relative" [routerLinkActive]="['active']"
+      [routerLinkActiveOptions]="{exact:false}" [routerLink]="['medicaldetails']">
+      <md-icon md-list-icon>explicit</md-icon>
+      Medical Details
+    </a>
+    <a md-list-item (click)="!media.query('gt-sm') && adminList.close()" md-ripple class="block relative" [routerLinkActive]="['active']"
+      [routerLinkActiveOptions]="{exact:false}" [routerLink]="['scheduleappointment']">
+      <md-icon md-list-icon>explicit</md-icon>
+      Schedule Appointment
+    </a>
+  </md-nav-list>
+
+  <!-- <div td-toolbar-content layout="row" layout-align="start center" flex>
+    <span *ngIf="!adminList.opened">Medpharmservices</span>
+    <span flex></span>
+    
+</div> -->
+  <router-outlet></router-outlet>
+
+</td-layout-nav-list>
