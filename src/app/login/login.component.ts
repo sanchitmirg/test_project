@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { TdLoadingService } from '@covalent/core';
+import { AuthService } from '../services/auth.service';
+import { User } from '../shared/models/user';
 
 @Component({
   selector: 'qs-login',
@@ -13,15 +15,13 @@ export class LoginComponent {
   username: string;
   password: string;
 
+  user: User = new User();
+
   constructor(private _router: Router,
-              private _loadingService: TdLoadingService) {}
+              private _loadingService: TdLoadingService,
+              private auth: AuthService) {}
 
   login(): void {
-    this._loadingService.register();
-    alert('Mock log in as ' + this.username);
-    setTimeout(() => {
-      this._router.navigate(['/']);
-      this._loadingService.resolve();
-    }, 2000);
+    this.auth.login();
   }
 }

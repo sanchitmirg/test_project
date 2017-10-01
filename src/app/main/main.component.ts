@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { MdDialog } from '@angular/material';
+import { QuickAddPatientComponent } from '../quick-add-patient/quick-add-patient.component';
+import { ScheduleComponent } from '../schedule/schedule.component';
 
 @Component({
   selector: 'qs-main',
@@ -9,15 +12,33 @@ import { Router } from '@angular/router';
 export class MainComponent {
 
   routes: Object[] = [{
-      title: 'Add Patient',
-      route: '/addpatient',
-      icon: 'account_circle',
-    }, 
+    title: 'Add Patient',
+    route: '/addpatient',
+    icon: 'account_circle',
+  },
   ];
 
-  constructor(private _router: Router) {}
+  constructor(private _router: Router,
+    private dialog: MdDialog, ) { }
 
   logout(): void {
     this._router.navigate(['/login']);
   }
+
+  openPatientForm(): void {
+    let dialogRef = this.dialog.open(QuickAddPatientComponent, {
+      height: 'auto', // can be px or %
+      width: '50%', // can be px or %
+      disableClose: true,
+    });
+  }
+
+  openSchedule(): void {
+    let dialogRef = this.dialog.open(ScheduleComponent, {
+      height: 'auto', // can be px or %
+      width: '50%', // can be px or %
+      disableClose: true,
+    });
+  }
+
 }

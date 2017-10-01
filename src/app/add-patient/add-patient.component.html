@@ -1,37 +1,166 @@
-<td-layout-nav-list #adminList toolbarTitle="Application" color="accent" [opened]="media.registerQuery('gt-sm') | async"
-  [mode]="(media.registerQuery('gt-sm') | async) ? 'side' : 'push'" [sidenavWidth]="(media.registerQuery('gt-xs') | async) ? '257px' : '100%'">
-  <md-toolbar td-sidenav-content>
-    <span>Patient Information</span>
-  </md-toolbar>
-  <md-nav-list td-sidenav-content>
-    <a md-list-item md-ripple class="block relative" (click)="!media.query('gt-sm') && adminList.close()" [routerLinkActive]="['active']"
-      [routerLinkActiveOptions]="{exact:true}" [routerLink]="['/personaldetails']">
-      <md-icon md-list-icon>dashboard</md-icon>
-      Personal Details
-    </a>
-    <a md-list-item md-ripple class="block relative" (click)="!media.query('gt-sm') && adminList.close()" [routerLinkActive]="['active']"
-      [routerLinkActiveOptions]="{exact:false}" [routerLink]="['addressdetails']">
-      <md-icon md-list-icon>people</md-icon>
-      Address Details
-    </a>
-
-    <a md-list-item (click)="!media.query('gt-sm') && adminList.close()" md-ripple class="block relative" [routerLinkActive]="['active']"
-      [routerLinkActiveOptions]="{exact:false}" [routerLink]="['medicaldetails']">
-      <md-icon md-list-icon>explicit</md-icon>
-      Medical Details
-    </a>
-    <a md-list-item (click)="!media.query('gt-sm') && adminList.close()" md-ripple class="block relative" [routerLinkActive]="['active']"
-      [routerLinkActiveOptions]="{exact:false}" [routerLink]="['scheduleappointment']">
-      <md-icon md-list-icon>explicit</md-icon>
-      Schedule Appointment
-    </a>
-  </md-nav-list>
-
-  <!-- <div td-toolbar-content layout="row" layout-align="start center" flex>
-    <span *ngIf="!adminList.opened">Medpharmservices</span>
+<td-layout-nav>
+  <div td-toolbar-content layout="row" layout-align="center center" flex>
+    <span>Dev Clinic</span>
     <span flex></span>
-    
-</div> -->
-  <router-outlet></router-outlet>
+  </div>
 
-</td-layout-nav-list>
+  <div class="md-content" class="inset">
+    <div layout="column" layout-gt-xs="row">
+      <div flex>
+        <md-card>
+          <div layout="row">
+            <div layout="column" style="float:left">
+              <md-card-title>Patient Information</md-card-title>
+            </div>
+            <div layout='column'>
+              <md-input-container>
+                <input #patient (keyup)="filterPatients(patient.value)" mdInput [mdAutocomplete]="autopatients" [(ngModel)]="clientSearchString"
+                  placeholder="Search Patient" name="patientname">
+              </md-input-container>
+              <md-autocomplete #autopatients="mdAutocomplete" [displayWith]="displayClientName" (blur)="fetchClientId(c)">
+                <md-option *ngFor="let c of filteredPatients" [value]="c">
+                  {{ c.client_name }}
+                </md-option>
+              </md-autocomplete>
+            </div>
+          </div>
+          <md-divider></md-divider>
+          <md-card-content>
+            <div layout="row" flex>
+              <div layout="column" class="left-padding top-padding" flex>
+                <md-input-container flex> <input mdInput placeholder="Firstname" name="firstname"></md-input-container>
+              </div>
+              <div layout="column" class="left-padding top-padding" flex>
+                <md-input-container flex> <input mdInput placeholder="Lastname" name="lastname"></md-input-container>
+              </div>
+              <div layout="column" class="left-padding right-padding top-padding" flex>
+                <md-input-container flex> <input mdInput placeholder="Email" name="email"></md-input-container>
+              </div>
+            </div>
+            <div layout="row" flex>
+              <div layout="column" class="left-padding" style="padding-top:5px" flex>
+                <md-select placeholder="Gender">
+                  <md-option *ngFor="let gender of genders" [value]="gender.value">
+                    {{ gender.viewValue }}
+                  </md-option>
+                </md-select>
+              </div>
+              <div layout="column" class="left-padding right-padding" flex>
+                <md-input-container flex> <input mdInput placeholder="Birth Date" name="dob"></md-input-container>
+              </div>
+              <!-- <div layout="column" class="left-padding right-padding" flex>
+                <md-input-container flex> <input mdInput placeholder="Patient Id" name="patientId"></md-input-container>
+              </div> -->
+              <div layout="column" class="left-padding" flex>
+                <md-input-container flex> <input mdInput placeholder="Mobile Number" name="mobileNumber"></md-input-container>
+              </div>
+            </div>
+            <!-- <div layout="row" flex> -->
+            <!-- <div layout="column" class="left-padding">
+                <md-input-container flex> <input mdInput placeholder="Mobile Number" name="mobileNumber"></md-input-container>
+              </div> -->
+            <!-- <div layout="column" class="left-padding" flex>
+                <md-input-container flex> <input mdInput placeholder="LandLine Number" name="landLineNumber"></md-input-container>
+              </div>
+
+              <div layout="column" class="left-padding right-padding" flex>
+                <md-input-container flex> <input mdInput placeholder="Alternate Number" name="alternateNumber"></md-input-container>
+              </div> -->
+
+            <!-- </div> -->
+            <div layout="row" flex>
+              <div layout="column" class="left-padding" style="padding-top:5px" flex>
+                <md-input-container flex> <input mdInput placeholder="Weight(Kg)" name="weight"></md-input-container>
+              </div>
+              <div layout="column" class="left-padding top-padding" flex>
+                <md-select placeholder="Blood Group">
+                  <md-option *ngFor="let bloodgroup of bloodGroups" [value]="bloodgroup.value">
+                    {{ bloodgroup.viewValue }}
+                  </md-option>
+                </md-select>
+              </div>
+              <div layout="column" class="left-padding right-padding top-padding" flex>
+                <md-select placeholder="Language Preferred">
+                  <md-option *ngFor="let language of languages" [value]="language.value">
+                    {{ language.viewValue }}
+                  </md-option>
+                </md-select>
+              </div>
+              <!-- <div layout="column" class="left-padding" style="padding-top:5px" flex>
+                <md-select placeholder="Weight Unit">
+                  <md-option *ngFor="let weightUnit of weightUnits" [value]="weightUnit.value">
+                    {{ weightUnit.viewValue }}
+                  </md-option>
+                </md-select>
+              </div> -->
+              <!-- <div layout="column" class="left-padding right-padding" flex>
+                <md-input-container flex> <input mdInput placeholder="Height" name="height"></md-input-container>
+              </div>
+              <div layout="column" class="left-padding" style="padding-top:5px" flex>
+                <md-select placeholder="Height Unit">
+                  <md-option *ngFor="let heightUnit of heightUnits" [value]="heightUnit.value">
+                    {{ heightUnit.viewValue }}
+                  </md-option>
+                </md-select>
+              </div> -->
+            </div>
+            <!-- <div layout="row" flex> -->
+            <!-- <div layout="column" class="left-padding top-padding" flex>
+                <md-select placeholder="Blood Group">
+                  <md-option *ngFor="let bloodgroup of bloodGroups" [value]="bloodgroup.value">
+                    {{ bloodgroup.viewValue }}
+                  </md-option>
+                </md-select>
+              </div>
+              <div layout="column" class="left-padding right-padding top-padding" flex>
+                <md-select placeholder="Language Preferred">
+                  <md-option *ngFor="let language of languages" [value]="language.value">
+                    {{ language.viewValue }}
+                  </md-option>
+                </md-select>
+              </div> -->
+            <!-- </div> -->
+          </md-card-content>
+        </md-card>
+        <td-expansion-panel style="margin-left:8px; margin-right:8px" label="Address Details" [disabled]="disabled">
+          <div class="md-padding">
+            <div layout="row" flex>
+              <div layout="column" class="left-padding top-padding" flex>
+                <md-input-container flex> <input mdInput placeholder="Address" name="address"></md-input-container>
+              </div>
+            </div>
+            <div layout="row" flex>
+              <div layout="column" class="left-padding top-padding" flex>
+                <md-input-container flex> <input mdInput placeholder="State" name="State"></md-input-container>
+              </div>
+              <div layout="column" class="left-padding top-padding" flex>
+                <md-input-container flex> <input mdInput placeholder="City" name="city"></md-input-container>
+              </div>
+              <div layout="column" class="left-padding top-padding" flex>
+                <md-input-container flex> <input mdInput placeholder="Country" name="country"></md-input-container>
+              </div>
+              <div layout="column" class="left-padding top-padding" flex>
+                <md-input-container flex> <input mdInput placeholder="Pincode" name="pincode"></md-input-container>
+              </div>
+            </div>
+          </div>
+        </td-expansion-panel>
+        <td-expansion-panel style="margin-left:8px; margin-right:8px; margin-top:8px" label="Schedule Appointment" [disabled]="disabled">
+          <div class="md-padding">
+            <div layout="row" flex>
+              <div layout="column" class="left-padding top-padding" flex>
+                <md-input-container flex> <input mdInput placeholder="Date" name="date"></md-input-container>
+              </div>
+              <div layout="column" class="left-padding top-padding" flex>
+                <md-input-container flex> <input mdInput placeholder="startTime" name="starttime"></md-input-container>
+              </div>
+              <div layout="column" class="left-padding top-padding" flex>
+                <md-input-container flex> <input mdInput placeholder="endTime" name="endtime"></md-input-container>
+              </div>
+            </div>
+          </div>
+        </td-expansion-panel>
+      </div>
+    </div>
+  </div>
+</td-layout-nav>

@@ -28,6 +28,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts/release';
 import { Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
+
 // import { CheckPermissionDirective } from "../directives/check-permission.directive";
 // import { SecuredDirective } from "../directives/secured.directive";
 // import { MetadataComponent } from "../metadata/metadata.component";
@@ -51,7 +52,7 @@ import { MaterialModule } from '@angular/material';
     CovalentFileModule,
     CovalentStepsModule,
     // CovalentChartsModule,
-    CovalentHttpModule,
+    // CovalentHttpModule,
     CovalentHighlightModule,
     CovalentMarkdownModule,
     CovalentMediaModule,
@@ -83,7 +84,7 @@ import { MaterialModule } from '@angular/material';
     CovalentFileModule,
     CovalentStepsModule,
     // CovalentChartsModule,
-    CovalentHttpModule,
+    // CovalentHttpModule,
     CovalentHighlightModule,
     CovalentMarkdownModule,
     CovalentMediaModule,

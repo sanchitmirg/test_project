@@ -14,7 +14,8 @@ import { LoginComponent } from './login/login.component';
 import { FormComponent } from './form/form.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AddPatientComponent } from './add-patient/add-patient.component';
-import { PersonalDetailsComponent } from './add-patient/personal-details/personal-details.component';
+
+
 
 const routes: Routes = [
     {
@@ -31,7 +32,8 @@ const routes: Routes = [
             },
             {
                 path:'addpatient',
-                loadChildren:'./addpatient/addpatient.module#AddPatientModule'
+                component: AddPatientComponent
+                
             }
 
         ]
