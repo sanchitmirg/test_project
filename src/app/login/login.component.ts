@@ -21,7 +21,7 @@ export class LoginComponent {
               private _loadingService: TdLoadingService,
               private auth: AuthService) {}
 
-  login(): void {
-    this.auth.login();
+  login() {
+    this.auth.login(this.user)
   }
 }

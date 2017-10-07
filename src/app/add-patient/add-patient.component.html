@@ -26,40 +26,41 @@
           </div>
           <md-divider></md-divider>
           <md-card-content>
-            <div layout="row" flex>
-              <div layout="column" class="left-padding top-padding" flex>
-                <md-input-container flex> <input mdInput placeholder="Firstname" name="firstname"></md-input-container>
+            <form #patientForm="ngForm">
+              <div layout="row" flex>
+                <div layout="column" class="left-padding top-padding" flex>
+                  <md-input-container flex> <input mdInput placeholder="Firstname" [(ngModel)]="patient.firstname" name="firstname" ></md-input-container>
+                </div>
+                <div layout="column" class="left-padding top-padding" flex>
+                  <md-input-container flex> <input mdInput placeholder="Lastname" [(ngModel)]="patient.lastname" name="lastname" ></md-input-container>
+                </div>
+                <div layout="column" class="left-padding right-padding top-padding" flex>
+                  <md-input-container flex> <input mdInput placeholder="Email" [(ngModel)]="patient.email" name="email"></md-input-container>
+                </div>
               </div>
-              <div layout="column" class="left-padding top-padding" flex>
-                <md-input-container flex> <input mdInput placeholder="Lastname" name="lastname"></md-input-container>
-              </div>
-              <div layout="column" class="left-padding right-padding top-padding" flex>
-                <md-input-container flex> <input mdInput placeholder="Email" name="email"></md-input-container>
-              </div>
-            </div>
-            <div layout="row" flex>
-              <div layout="column" class="left-padding" style="padding-top:5px" flex>
-                <md-select placeholder="Gender">
-                  <md-option *ngFor="let gender of genders" [value]="gender.value">
-                    {{ gender.viewValue }}
-                  </md-option>
-                </md-select>
-              </div>
-              <div layout="column" class="left-padding right-padding" flex>
-                <md-input-container flex> <input mdInput placeholder="Birth Date" name="dob"></md-input-container>
-              </div>
-              <!-- <div layout="column" class="left-padding right-padding" flex>
+              <div layout="row" flex>
+                <div layout="column" class="left-padding" style="padding-top:5px" flex>
+                  <md-select placeholder="Gender">
+                    <md-option *ngFor="let gender of genders" [value]="gender.value" >
+                      {{ gender.viewValue }}
+                    </md-option>
+                  </md-select>
+                </div>
+                <div layout="column" class="left-padding right-padding" flex>
+                  <md-input-container flex> <input mdInput placeholder="Birth Date" [(ngModel)]="patient.dob" name="dob"></md-input-container>
+                </div>
+                <!-- <div layout="column" class="left-padding right-padding" flex>
                 <md-input-container flex> <input mdInput placeholder="Patient Id" name="patientId"></md-input-container>
               </div> -->
-              <div layout="column" class="left-padding" flex>
-                <md-input-container flex> <input mdInput placeholder="Mobile Number" name="mobileNumber"></md-input-container>
+                <div layout="column" class="left-padding" flex>
+                  <md-input-container flex> <input mdInput placeholder="Mobile Number" [(ngModel)]="patient.number" name="mobileNumber"></md-input-container>
+                </div>
               </div>
-            </div>
-            <!-- <div layout="row" flex> -->
-            <!-- <div layout="column" class="left-padding">
+              <!-- <div layout="row" flex> -->
+              <!-- <div layout="column" class="left-padding">
                 <md-input-container flex> <input mdInput placeholder="Mobile Number" name="mobileNumber"></md-input-container>
               </div> -->
-            <!-- <div layout="column" class="left-padding" flex>
+              <!-- <div layout="column" class="left-padding" flex>
                 <md-input-container flex> <input mdInput placeholder="LandLine Number" name="landLineNumber"></md-input-container>
               </div>
 
@@ -67,59 +68,27 @@
                 <md-input-container flex> <input mdInput placeholder="Alternate Number" name="alternateNumber"></md-input-container>
               </div> -->
 
-            <!-- </div> -->
-            <div layout="row" flex>
-              <div layout="column" class="left-padding" style="padding-top:5px" flex>
-                <md-input-container flex> <input mdInput placeholder="Weight(Kg)" name="weight"></md-input-container>
+              <!-- </div> -->
+              <div layout="row" flex>
+                <div layout="column" class="left-padding" style="padding-top:5px" flex>
+                  <md-input-container flex> <input mdInput placeholder="Weight(Kg)" [(ngModel)]="patient.weight" name="weight" ></md-input-container>
+                </div>
+                <div layout="column" class="left-padding top-padding" flex>
+                  <md-select placeholder="Blood Group">
+                    <md-option *ngFor="let bloodgroup of bloodGroups" [value]="bloodgroup.value" >
+                      {{ bloodgroup.viewValue }}
+                    </md-option>
+                  </md-select>
+                </div>
+                <div layout="column" class="left-padding right-padding top-padding" flex>
+                  <md-select placeholder="Language Preferred">
+                    <md-option *ngFor="let language of languages" [value]="language.value" >
+                      {{ language.viewValue }}
+                    </md-option>
+                  </md-select>
+                </div>  
               </div>
-              <div layout="column" class="left-padding top-padding" flex>
-                <md-select placeholder="Blood Group">
-                  <md-option *ngFor="let bloodgroup of bloodGroups" [value]="bloodgroup.value">
-                    {{ bloodgroup.viewValue }}
-                  </md-option>
-                </md-select>
-              </div>
-              <div layout="column" class="left-padding right-padding top-padding" flex>
-                <md-select placeholder="Language Preferred">
-                  <md-option *ngFor="let language of languages" [value]="language.value">
-                    {{ language.viewValue }}
-                  </md-option>
-                </md-select>
-              </div>
-              <!-- <div layout="column" class="left-padding" style="padding-top:5px" flex>
-                <md-select placeholder="Weight Unit">
-                  <md-option *ngFor="let weightUnit of weightUnits" [value]="weightUnit.value">
-                    {{ weightUnit.viewValue }}
-                  </md-option>
-                </md-select>
-              </div> -->
-              <!-- <div layout="column" class="left-padding right-padding" flex>
-                <md-input-container flex> <input mdInput placeholder="Height" name="height"></md-input-container>
-              </div>
-              <div layout="column" class="left-padding" style="padding-top:5px" flex>
-                <md-select placeholder="Height Unit">
-                  <md-option *ngFor="let heightUnit of heightUnits" [value]="heightUnit.value">
-                    {{ heightUnit.viewValue }}
-                  </md-option>
-                </md-select>
-              </div> -->
-            </div>
-            <!-- <div layout="row" flex> -->
-            <!-- <div layout="column" class="left-padding top-padding" flex>
-                <md-select placeholder="Blood Group">
-                  <md-option *ngFor="let bloodgroup of bloodGroups" [value]="bloodgroup.value">
-                    {{ bloodgroup.viewValue }}
-                  </md-option>
-                </md-select>
-              </div>
-              <div layout="column" class="left-padding right-padding top-padding" flex>
-                <md-select placeholder="Language Preferred">
-                  <md-option *ngFor="let language of languages" [value]="language.value">
-                    {{ language.viewValue }}
-                  </md-option>
-                </md-select>
-              </div> -->
-            <!-- </div> -->
+            </form>
           </md-card-content>
         </md-card>
         <td-expansion-panel style="margin-left:8px; margin-right:8px" label="Address Details" [disabled]="disabled">
@@ -131,13 +100,27 @@
             </div>
             <div layout="row" flex>
               <div layout="column" class="left-padding top-padding" flex>
-                <md-input-container flex> <input mdInput placeholder="State" name="State"></md-input-container>
+                <md-input-container flex> <input #state mdInput placeholder="State" [mdAutocomplete]="autostates" (keyup)="filterStates(state.value)"
+                    name="state"></md-input-container>
+                <md-autocomplete #autostates="mdAutocomplete" [displayWith]="displayStateName">
+                  <md-option *ngFor="let c of filteredStates" [value]="c" (blur)="fetchStateName(c)">
+                    {{ c.name }}
+                  </md-option>
+                </md-autocomplete>
               </div>
               <div layout="column" class="left-padding top-padding" flex>
                 <md-input-container flex> <input mdInput placeholder="City" name="city"></md-input-container>
               </div>
+
               <div layout="column" class="left-padding top-padding" flex>
-                <md-input-container flex> <input mdInput placeholder="Country" name="country"></md-input-container>
+                <md-input-container flex> <input #country mdInput placeholder="Country" [mdAutocomplete]="autocountries" (keyup)="filterCountries(country.value)"
+                    name="country"></md-input-container>
+
+                <md-autocomplete #autocountries="mdAutocomplete" [displayWith]="displayProductName">
+                  <md-option *ngFor="let c of filteredCountries" [value]="c" (blur)="fetchCountryName(c)">
+                    {{ c.name }}
+                  </md-option>
+                </md-autocomplete>
               </div>
               <div layout="column" class="left-padding top-padding" flex>
                 <md-input-container flex> <input mdInput placeholder="Pincode" name="pincode"></md-input-container>
@@ -155,12 +138,25 @@
                 <md-input-container flex> <input mdInput placeholder="startTime" name="starttime"></md-input-container>
               </div>
               <div layout="column" class="left-padding top-padding" flex>
-                <md-input-container flex> <input mdInput placeholder="endTime" name="endtime"></md-input-container>
+                <md-input-container flex> <input mdInput placeholder="endTime" name="Endtime"></md-input-container>
               </div>
             </div>
           </div>
+          <div layout="row" flex>
+            <div layout="column" class="left-padding" flex>
+              <md-input-container flex> <input mdInput placeholder="Consultant" name="consultant"></md-input-container>
+            </div>
+          </div>
         </td-expansion-panel>
+
       </div>
+      
     </div>
+    <form>
+        <md-card-actions style="padding-left:30px">
+          <button style="margin-right:5px" md-raised-button color='accent'  (click)="savePatient(patientForm)">Save</button>
+          <button md-raised-button (click)="cancel()">Cancel</button>
+        </md-card-actions>
+      </form>
   </div>
 </td-layout-nav>

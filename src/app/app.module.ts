@@ -1,6 +1,7 @@
 import { NgModule, Type } from '@angular/core';
 import { BrowserModule, Title }  from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { CovalentHttpModule, IHttpInterceptor } from '@covalent/http';
@@ -27,9 +28,10 @@ import { ApiService } from './services/api.service';
 
 
 
-/* const httpInterceptorProviders: Type<any>[] = [
+
+const httpInterceptorProviders: Type<any>[] = [
   RequestInterceptor,
-]; */
+];
 
 export function getAPI(): string {
   return MOCK_API;
@@ -46,20 +48,21 @@ export function getAPI(): string {
   imports: [
     AppRoutingModule,
     BrowserModule,
+    FormsModule,
     HttpModule,
     BrowserAnimationsModule,
     DatepickerModule,
     SharedModule,
-    /* CovalentHttpModule.forRoot({
+    CovalentHttpModule.forRoot({
       interceptors: [{
         interceptor: RequestInterceptor, paths: ['**'],
       }],
-    }), */
+    }),
     CovalentHighlightModule,
     CovalentMarkdownModule,
   ], // modules needed to run this module
   providers: [
-    // httpInterceptorProviders,
+    httpInterceptorProviders,
     Title, {
       provide: USERS_API, useFactory: getAPI,
     }, 
