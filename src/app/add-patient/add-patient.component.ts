@@ -1,8 +1,13 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { TdMediaService } from '@covalent/core';
-import { Http,Response } from '@angular/http';
+import { Http,Response,Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { PatientDetail } from '../shared/models/patient';
+import { ApiService } from '../services/api.service';
+import { Address } from '../shared/models/address';
+import { AppointmentDetails } from '../shared/models/appointment';
+import { ConsultantDetails } from '../shared/models/consultant';
+import { PatientData } from '../shared/models/patientdata';
 
 @Component({
   selector: 'app-add-patient',
@@ -54,22 +59,48 @@ export class AddPatientComponent implements OnInit, AfterViewInit {
   states: any[]=[];
   filteredStates: any[]=[];
 
-  patient: PatientDetail;
+  consultants: any[]=[];
+  filteredConsultants: any[]=[];
+
+  patient: PatientDetail = new PatientDetail();
+  address:Address = new Address()
+  appointmentDetails: AppointmentDetails = new AppointmentDetails();
+  consultant: ConsultantDetails = new ConsultantDetails();
+  patientData: PatientData = new PatientData()
 
   constructor(
     public media: TdMediaService,
+    private api: ApiService,
     private http: Http
   ) { }
 
   ngOnInit() {
     this.loadCountries();
     this.loadStates();
+    this.loadConsultants();
   }
 
   ngAfterViewInit(): void {
     this.media.broadcast();
   }
 
+  loadConsultants(){
+    this.http.get(this.api.BASE_URL+'consultantDetails')
+    .map((res:Response)=> res.json()['_embedded']['consultantDetails'])
+    .subscribe((data)=>{
+      this.consultants = data;
+      console.log("The consultant list is", data)
+      this.filteredConsultants = this.consultants;
+      
+    })
+  }
+
+  filterConsultants = (filterTerm: string) => {
+    const filterText: string = filterTerm.toLowerCase();
+    this.filteredConsultants = this.consultants.filter((e: any) => {
+      return (!filterText || e.name.toLowerCase().indexOf(filterText.toLowerCase()) > -1);
+    });
+  }
   loadCountries(){
     this.http.get("/assets/countries.json")
     .map((res:Response)=> res.json()['countries'])
@@ -88,6 +119,10 @@ export class AddPatientComponent implements OnInit, AfterViewInit {
   }
 
   displayProductName(data: any) {
+    return data ? data.name : data;
+  }
+
+  displayConsultantName(data: any) {
     return data ? data.name : data;
   }
 
@@ -122,6 +157,11 @@ export class AddPatientComponent implements OnInit, AfterViewInit {
     console.log("The country details are",c)
   }
 
+  fetchConsultant(c){
+    console.log("The consultant object is",c)
+    this.appointmentDetails.consultant = c;
+  }
+
   filterPatients = (filterTerm: string) => {
     const filterText: string = filterTerm.toLowerCase();
     this.filteredPatients = this.patients.filter((e: any) => {
@@ -129,7 +169,44 @@ export class AddPatientComponent implements OnInit, AfterViewInit {
     });
   }
 
+
   savePatient(patientdata){
+    
     console.log("The patient data is", patientdata)
+    this.patient.firstname = patientdata.value.firstname;
+    this.patient.lastname = patientdata.value.lastname;
+    this.patient.number = patientdata.value.mobileNumber;
+    this.patient.weight = patientdata.value.weight;
+    this.patient.dob = patientdata.value.dob;
+    this.patient.bloodGroup = patientdata.value.bloodGroup;
+    this.patient.firstname = patientdata.value.firstname;
+
+    this.address.street = patientdata.value.address;
+
+    // this.consultant.name = patientdata.value.consultant
+    // this.appointmentDetails.consultant = this.consultant;
+
+    this.patientData.patientDetail = this.patient;
+    this.patientData.addressDetail = this.address;
+    this.patientData.appointmentDetail = this.appointmentDetails;
+
+
+    this.savePatientHttpCall(this.patientData)
+  }
+
+  savePatientHttpCall(patient){
+    console.log("The patient data 3 is",patient)
+    this.http.post(this.api.BASE_URL + 'patient/saveDetails', JSON.stringify(patient), {
+      headers: new Headers({
+          'Content-Type': 'application/json',
+      }),
+  })
+      .map((res: Response) => {
+          console.log("The response from patient save server is", res.json())
+          return res.json();
+      }).subscribe((response)=>{
+          console.log("The response from server 2 is", response)
+          // this.handleAuthentication(response);
+      })
   }
 }
