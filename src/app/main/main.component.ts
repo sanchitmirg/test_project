@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MdDialog } from '@angular/material';
 import { QuickAddPatientComponent } from '../quick-add-patient/quick-add-patient.component';
 import { ScheduleComponent } from '../schedule/schedule.component';
+import { PatientsearchComponent } from "../recordvisit/patientsearch/patientsearch.component";
 
 @Component({
   selector: 'qs-main',
@@ -35,6 +36,14 @@ export class MainComponent {
 
   openSchedule(): void {
     let dialogRef = this.dialog.open(ScheduleComponent, {
+      height: 'auto', // can be px or %
+      width: '50%', // can be px or %
+      disableClose: true,
+    });
+  }
+
+  recordVisit(){
+    let dialogRef = this.dialog.open(PatientsearchComponent, {
       height: 'auto', // can be px or %
       width: '50%', // can be px or %
       disableClose: true,

@@ -24,6 +24,8 @@ import { DatepickerModule } from 'angular2-material-datepicker';
 import { QuickAddPatientComponent } from './quick-add-patient/quick-add-patient.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { ApiService } from './services/api.service';
+import { RecordvisitComponent } from './recordvisit/recordvisit.component';
+import { PatientsearchComponent } from './recordvisit/patientsearch/patientsearch.component';
 
 
 
@@ -43,7 +45,9 @@ export function getAPI(): string {
     routedComponents,
     AddPatientComponent,
     QuickAddPatientComponent,
-    ScheduleComponent
+    ScheduleComponent,
+    RecordvisitComponent,
+    PatientsearchComponent
   ], // directives, components, and pipes owned by this NgModule
   imports: [
     AppRoutingModule,
@@ -73,7 +77,8 @@ export function getAPI(): string {
   ], // additional providers needed for this module
   entryComponents: [ 
     QuickAddPatientComponent,
-    ScheduleComponent
+    ScheduleComponent,
+    PatientsearchComponent
   ],
   bootstrap: [ AppComponent ],
 })

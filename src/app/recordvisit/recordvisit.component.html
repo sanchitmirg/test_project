@@ -1,0 +1,68 @@
+<td-layout-nav>
+  <div td-toolbar-content layout="row" layout-align="center center" flex>
+    <span>Dev Clinic</span>
+    <span flex></span>
+  </div>
+  <div style="margin:10px;">
+    <md-card>
+      <md-card-title style="padding:5px; margin:10px">Record Visit</md-card-title>
+    </md-card>
+    <md-card style="padding-bottom:10px">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-1 col-md-2 col-lg-4" style="background-color:whitesmoke; margin:10px">
+            <md-card-title>Sanchit Mirg</md-card-title>
+            <md-card-subtitle>
+              <div>+91 9638792002</div>
+              <span fxFlex></span>
+              <div>10/11 civil lines</div>
+            </md-card-subtitle>
+          </div>
+        </div>
+      </div>
+    </md-card>
+    <md-card>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-1 col-md-2 col-lg-2">
+            <h4>Add Treatments</h4>
+            <md-divider></md-divider>
+            <md-nav-list>
+              <ng-template let-item let-last="last" ngFor [ngForOf]="items">
+                <a md-list-item (click)="subItemSelection(item.id)">{{item.title}}</a>
+              </ng-template>
+            </md-nav-list>
+          </div>
+          <div class="col-sm-1 col-md-2 col-lg-2">
+            <h4>Manage Treatments</h4>
+            <md-divider></md-divider>
+            <md-nav-list>
+              <ng-template let-item let-last="last" ngFor [ngForOf]="subItem">
+                <a md-list-item (click)="itemPricing(item.name)">{{item.name}}</a>
+              </ng-template>
+            </md-nav-list>
+          </div>
+          <div class="col-sm-10 col-md-8 col-lg-8">
+            <!--<mat-card-subtitle>Treatments</mat-card-subtitle>-->
+            <h4>Selected Treatments and Pricing</h4>
+            <md-divider></md-divider>
+            <md-nav-list>
+              <ng-template let-item let-last="last" ngFor [ngForOf]="priceDetail">
+                <div class="block">
+                  <md-card md-list-item style="background-color:whitesmoke; padding:10px">
+                    <div>
+                      <h4>{{item.name}}</h4>
+                    </div>
+                    <!--<md-card-title>{{item.name}}</md-card-title>-->
+                    <span fxFlex></span>
+                    <input matInput placeholder="Price"> - <input matInput placeholder="Discount"> = <input matInput placeholder="Final Price">
+                  </md-card>
+                </div>
+              </ng-template>
+            </md-nav-list>
+          </div>
+        </div>
+      </div>
+    </md-card>
+  </div>
+</td-layout-nav>

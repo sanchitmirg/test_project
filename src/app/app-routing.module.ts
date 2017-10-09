@@ -14,6 +14,7 @@ import { LoginComponent } from './login/login.component';
 import { FormComponent } from './form/form.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AddPatientComponent } from './add-patient/add-patient.component';
+import { RecordvisitComponent } from "./recordvisit/recordvisit.component";
 
 
 
@@ -33,6 +34,11 @@ const routes: Routes = [
             {
                 path:'addpatient',
                 component: AddPatientComponent
+                
+            },
+            {
+                path:'visit/create',
+                component: RecordvisitComponent
                 
             }
 

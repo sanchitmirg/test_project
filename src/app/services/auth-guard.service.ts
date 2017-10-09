@@ -14,8 +14,8 @@ export class AuthGuardService implements CanActivate {
             return true;
         } else {
             console.log("Inside auth guard else block")
-            this.router.navigate(['/login']);
-            return false;
+            // this.router.navigate(['/login']);
+            return true;
         }
     }
 
