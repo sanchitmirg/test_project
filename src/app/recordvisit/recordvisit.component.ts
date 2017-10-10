@@ -20,7 +20,7 @@ export class RecordvisitComponent implements OnInit {
   },
   ];
   
-  pricingObject: {name:string};
+  pricingObject: {name:string, price:number, discountPrice:number, finalPrice:number};
   priceDetail:any[]=[];
 
   constructor(
@@ -42,7 +42,7 @@ export class RecordvisitComponent implements OnInit {
   }
 
   itemPricing(name:string){
-    this.pricingObject = {name:name}
+    this.pricingObject = {name:name, price:0, discountPrice:0, finalPrice:0 }
     this.priceDetail.push(this.pricingObject)
   }
 

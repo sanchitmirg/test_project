@@ -6,9 +6,9 @@
         <input #patient (keyup)="filterPatients(patient.value)" mdInput [mdAutocomplete]="autopatients" [(ngModel)]="clientSearchString"
           placeholder="Search Patient" name="patientname">
       </md-input-container>
-      <md-autocomplete #autopatients="mdAutocomplete" [displayWith]="displayClientName" (blur)="fetchClientId(c)">
+      <md-autocomplete #autopatients="mdAutocomplete" [displayWith]="displayPatientName" (blur)="fetchClientId(c)">
         <md-option *ngFor="let c of filteredPatients" [value]="c">
-          {{ c.client_name }}
+          {{ c.firstname }}
         </md-option>
       </md-autocomplete>
     </div>
@@ -44,7 +44,7 @@
   </form>
 </md-dialog-content>
 <md-dialog-actions layout="row" layout-align="start">
-  <md-card-actions> <button style="padding-left:20px" md-raised-button color='accent'>SAVE</button>
+  <md-card-actions> <button style="padding-left:20px" md-raised-button color='accent' (click)="save()">SAVE</button>
     <button md-raised-button (click)="cancel()">Cancel</button>
   </md-card-actions>
 </md-dialog-actions>

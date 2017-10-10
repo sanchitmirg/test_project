@@ -47,7 +47,7 @@
             <h4>Selected Treatments and Pricing</h4>
             <md-divider></md-divider>
             <md-nav-list>
-              <ng-template let-item let-last="last" ngFor [ngForOf]="priceDetail">
+              <ng-template let-item let-last="last" let-i="index" ngFor [ngForOf]="priceDetail">
                 <div class="block">
                   <md-card md-list-item style="background-color:whitesmoke; padding:10px">
                     <div>
@@ -55,7 +55,7 @@
                     </div>
                     <!--<md-card-title>{{item.name}}</md-card-title>-->
                     <span fxFlex></span>
-                    <input matInput placeholder="Price"> - <input matInput placeholder="Discount"> = <input matInput placeholder="Final Price">
+                    <input matInput name="price" placeholder="Price"> - <input matInput name="discount" placeholder="Discount"> = <input matInput name="finalprice" placeholder="Final Price">
                   </md-card>
                 </div>
               </ng-template>
@@ -64,5 +64,9 @@
         </div>
       </div>
     </md-card>
+    <md-card-actions style="padding-left:30px">
+      <button style="margin-right:5px" md-raised-button color='accent' (click)="savePatient(patientForm)">Save</button>
+      <button md-raised-button (click)="cancel()">Cancel</button>
+    </md-card-actions>
   </div>
 </td-layout-nav>

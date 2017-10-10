@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MdDialogRef } from '@angular/material';
+import { PatientDetail } from "../shared/models/patient";
+import { ApiService } from "../services/api.service";
+import { Http,Response } from "@angular/http";
+import 'rxjs/add/operator/map';
+import 'rxjs'
 
 @Component({
   selector: 'app-quick-add-patient',
@@ -7,6 +12,10 @@ import { MdDialogRef } from '@angular/material';
   styleUrls: ['./quick-add-patient.component.scss']
 })
 export class QuickAddPatientComponent implements OnInit {
+
+  patient: PatientDetail = new PatientDetail();
+
+  gender:string;
 
   genders = [
     {value: 'm', viewValue: 'Male'},
@@ -16,6 +25,8 @@ export class QuickAddPatientComponent implements OnInit {
 
   constructor(
     public dialogRef: MdDialogRef<QuickAddPatientComponent>,
+    private api: ApiService,
+    private http: Http
   ) { }
 
   ngOnInit() {
@@ -24,4 +35,22 @@ export class QuickAddPatientComponent implements OnInit {
   cancel(){
     this.dialogRef.close();
   }
+
+  objChanged(event){
+    this.patient.gender = event.value
+  }
+
+  save(){
+    console.log("the paitnet data to be saved ", this.patient);
+    this.http.get(this.api.BASE_URL+'consultantDetails')
+    .map((res:Response)=> res.json()['_embedded']['consultantDetails'])
+    .subscribe((data)=>{
+      // this.consultants = data;
+      console.log("The consultant list is", data)
+      // this.filteredConsultants = this.consultants;
+      
+    })
+  }
+
+  
 }
