@@ -9,4 +9,6 @@ export class PatientDetail {
     preferredLanguage: string;
     weight:number;
     bloodGroup: string;
+    sendAddress:boolean;
+    sendWelcomeMessage: boolean;
 }

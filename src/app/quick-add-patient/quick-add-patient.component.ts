@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MdDialogRef } from '@angular/material';
 import { PatientDetail } from "../shared/models/patient";
 import { ApiService } from "../services/api.service";
-import { Http,Response } from "@angular/http";
+import { Http,Response,Headers } from "@angular/http";
 import 'rxjs/add/operator/map';
 import 'rxjs'
 
@@ -17,6 +17,10 @@ export class QuickAddPatientComponent implements OnInit {
 
   gender:string;
 
+  message:string
+  
+  welcomeMessage:boolean = false;
+  sendAddress:boolean = false;
   genders = [
     {value: 'm', viewValue: 'Male'},
     {value: 'f', viewValue: 'Female'},
@@ -40,16 +44,21 @@ export class QuickAddPatientComponent implements OnInit {
     this.patient.gender = event.value
   }
 
-  save(){
-    console.log("the paitnet data to be saved ", this.patient);
-    this.http.get(this.api.BASE_URL+'consultantDetails')
-    .map((res:Response)=> res.json()['_embedded']['consultantDetails'])
-    .subscribe((data)=>{
-      // this.consultants = data;
-      console.log("The consultant list is", data)
-      // this.filteredConsultants = this.consultants;
-      
+  savePatientHttpCall() {
+    console.log("The patient data 3 is", this.patient)
+    this.http.post(this.api.BASE_URL + 'patient/save', JSON.stringify(this.patient), {
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
     })
+      .map((res: Response) => {
+        console.log("The response from patient save server is", res.json())
+        return res.json();
+      }).subscribe((response) => {
+        this.message = response.message
+        console.log("The response from server 2 is", response.message)
+        // this.handleAuthentication(response);
+      })
   }
 
   

@@ -1,12 +1,12 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { TdMediaService } from '@covalent/core';
-import { Http,Response,Headers } from '@angular/http';
+import { Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { PatientDetail } from '../shared/models/patient';
 import { ApiService } from '../services/api.service';
 import { Address } from '../shared/models/address';
 import { AppointmentDetails } from '../shared/models/appointment';
-import { ConsultantDetails } from '../shared/models/consultant';
+import { ConsultantDetail } from '../shared/models/consultant';
 import { PatientData } from '../shared/models/patientdata';
 
 @Component({
@@ -15,57 +15,57 @@ import { PatientData } from '../shared/models/patientdata';
   styleUrls: ['./add-patient.component.scss']
 })
 export class AddPatientComponent implements OnInit, AfterViewInit {
-  
+
   genders = [
-    {value: 'm', viewValue: 'Male'},
-    {value: 'f', viewValue: 'Female'},
-    {value: 'o', viewValue: 'Others'}
+    { value: 'm', viewValue: 'Male' },
+    { value: 'f', viewValue: 'Female' },
+    { value: 'o', viewValue: 'Others' }
   ];
 
   weightUnits = [
-    {value: 'kg', viewValue: 'KG'},
-    {value: 'lb', viewValue: 'LB'},
+    { value: 'kg', viewValue: 'KG' },
+    { value: 'lb', viewValue: 'LB' },
   ];
 
   heightUnits = [
-    {value: 'cm', viewValue: 'CM'},
-    {value: 'ft', viewValue: 'FT'},
+    { value: 'cm', viewValue: 'CM' },
+    { value: 'ft', viewValue: 'FT' },
   ];
 
-  bloodGroups =[
-    {value: 'ab+', viewValue: 'AB+'},
-    {value: 'ab-', viewValue: 'AB-'},
-    {value: 'b+', viewValue: 'B+'},
-    {value: 'b-', viewValue: 'B-'},
-    {value: 'a+', viewValue: 'A+'},
-    {value: 'a-', viewValue: 'A-'},
-    {value: 'o+', viewValue: 'O+'},
-    {value: 'o-', viewValue: 'O-'},
+  bloodGroups = [
+    { value: 'ab+', viewValue: 'AB+' },
+    { value: 'ab-', viewValue: 'AB-' },
+    { value: 'b+', viewValue: 'B+' },
+    { value: 'b-', viewValue: 'B-' },
+    { value: 'a+', viewValue: 'A+' },
+    { value: 'a-', viewValue: 'A-' },
+    { value: 'o+', viewValue: 'O+' },
+    { value: 'o-', viewValue: 'O-' },
   ];
 
-  languages =[
-    {value: 'english', viewValue: 'English'},
-    {value: 'hindi', viewValue: 'Hindi'},
-    {value: 'gujarati', viewValue: 'Gujarati'},
-    
+  languages = [
+    { value: 'english', viewValue: 'English' },
+    { value: 'hindi', viewValue: 'Hindi' },
+    { value: 'gujarati', viewValue: 'Gujarati' },
+
   ];
 
   filteredPatients: any[];
   patients: any[];
 
-  countries: any[]=[];
-  filteredCountries: any[]=[];
+  countries: any[] = [];
+  filteredCountries: any[] = [];
 
-  states: any[]=[];
-  filteredStates: any[]=[];
+  states: any[] = [];
+  filteredStates: any[] = [];
 
-  consultants: any[]=[];
-  filteredConsultants: any[]=[];
+  consultants: any[] = [];
+  filteredConsultants: any[] = [];
 
   patient: PatientDetail = new PatientDetail();
-  address:Address = new Address()
+  address: Address = new Address()
   appointmentDetails: AppointmentDetails = new AppointmentDetails();
-  consultant: ConsultantDetails = new ConsultantDetails();
+  consultant: ConsultantDetail = new ConsultantDetail();
   patientData: PatientData = new PatientData()
 
   constructor(
@@ -84,15 +84,15 @@ export class AddPatientComponent implements OnInit, AfterViewInit {
     this.media.broadcast();
   }
 
-  loadConsultants(){
-    this.http.get(this.api.BASE_URL+'consultantDetails')
-    .map((res:Response)=> res.json()['_embedded']['consultantDetails'])
-    .subscribe((data)=>{
-      this.consultants = data;
-      console.log("The consultant list is", data)
-      this.filteredConsultants = this.consultants;
-      
-    })
+  loadConsultants() {
+    this.http.get(this.api.BASE_URL + 'consultantDetails')
+      .map((res: Response) => res.json()['_embedded']['consultantDetails'])
+      .subscribe((data) => {
+        this.consultants = data;
+        console.log("The consultant list is", data)
+        this.filteredConsultants = this.consultants;
+
+      })
   }
 
   filterConsultants = (filterTerm: string) => {
@@ -101,14 +101,14 @@ export class AddPatientComponent implements OnInit, AfterViewInit {
       return (!filterText || e.name.toLowerCase().indexOf(filterText.toLowerCase()) > -1);
     });
   }
-  loadCountries(){
+  loadCountries() {
     this.http.get("/assets/countries.json")
-    .map((res:Response)=> res.json()['countries'])
-    .subscribe((data)=>{
-      this.countries = data;
-      console.log("The country list", this.countries)
-      this.filteredCountries = this.countries
-    })
+      .map((res: Response) => res.json()['countries'])
+      .subscribe((data) => {
+        this.countries = data;
+        console.log("The country list", this.countries)
+        this.filteredCountries = this.countries
+      })
   }
 
   filterCountries = (filterTerm: string) => {
@@ -126,18 +126,18 @@ export class AddPatientComponent implements OnInit, AfterViewInit {
     return data ? data.name : data;
   }
 
-  fetchCountryName(c){
-    console.log("The country details are",c)
+  fetchCountryName(c) {
+    console.log("The country details are", c)
   }
 
-  loadStates(){
+  loadStates() {
     this.http.get("/assets/states.json")
-    .map((res:Response)=> res.json()['states'])
-    .subscribe((data)=>{
-      this.states = data;
-      console.log("The state list", this.states)
-      this.filteredStates = this.states
-    })
+      .map((res: Response) => res.json()['states'])
+      .subscribe((data) => {
+        this.states = data;
+        console.log("The state list", this.states)
+        this.filteredStates = this.states
+      })
 
   }
 
@@ -153,12 +153,12 @@ export class AddPatientComponent implements OnInit, AfterViewInit {
     return data ? data.name : data;
   }
 
-  fetchStateName(c){
-    console.log("The country details are",c)
+  fetchStateName(c) {
+    console.log("The country details are", c)
   }
 
-  fetchConsultant(c){
-    console.log("The consultant object is",c)
+  fetchConsultant(c) {
+    console.log("The consultant object is", c)
     this.appointmentDetails.consultant = c;
   }
 
@@ -170,8 +170,8 @@ export class AddPatientComponent implements OnInit, AfterViewInit {
   }
 
 
-  savePatient(patientdata){
-    
+  savePatient(patientdata) {
+
     console.log("The patient data is", patientdata)
     this.patient.firstname = patientdata.value.firstname;
     this.patient.lastname = patientdata.value.lastname;
@@ -194,19 +194,19 @@ export class AddPatientComponent implements OnInit, AfterViewInit {
     this.savePatientHttpCall(this.patientData)
   }
 
-  savePatientHttpCall(patient){
-    console.log("The patient data 3 is",patient)
+  savePatientHttpCall(patient) {
+    console.log("The patient data 3 is", patient)
     this.http.post(this.api.BASE_URL + 'patient/saveDetails', JSON.stringify(patient), {
       headers: new Headers({
-          'Content-Type': 'application/json',
+        'Content-Type': 'application/json',
       }),
-  })
+    })
       .map((res: Response) => {
-          console.log("The response from patient save server is", res.json())
-          return res.json();
-      }).subscribe((response)=>{
-          console.log("The response from server 2 is", response)
-          // this.handleAuthentication(response);
+        console.log("The response from patient save server is", res.json())
+        return res.json();
+      }).subscribe((response) => {
+        console.log("The response from server 2 is", response)
+        // this.handleAuthentication(response);
       })
   }
 }

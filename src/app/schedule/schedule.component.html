@@ -8,7 +8,7 @@
       </md-input-container>
       <md-autocomplete #autopatients="mdAutocomplete" [displayWith]="displayPatientName" (blur)="fetchClientId(c)">
         <md-option *ngFor="let c of filteredPatients" [value]="c">
-          {{ c.firstname }}
+          {{ c.firstname }}, {{c.lastname}}
         </md-option>
       </md-autocomplete>
     </div>
@@ -26,12 +26,12 @@
     <div layout="row" flex>
       <div layout='column' flex>
         <md-input-container>
-          <input #patient (keyup)="filterPatients(patient.value)" mdInput [mdAutocomplete]="autopatients" [(ngModel)]="clientSearchString"
+          <input #consultant (keyup)="filterConsultants(consultant.value)" mdInput [mdAutocomplete]="autoc" [(ngModel)]="clientSearchString"
             placeholder="Add Consultant" name="consultant">
         </md-input-container>
-        <md-autocomplete #autopatients="mdAutocomplete" [displayWith]="displayClientName" (blur)="fetchClientId(c)">
-          <md-option *ngFor="let c of filteredPatients" [value]="c">
-            {{ c.client_name }}
+        <md-autocomplete #autoc="mdAutocomplete" [displayWith]="displayName" (blur)="fetchClientId(c)">
+          <md-option *ngFor="let c of filteredConsultants" [value]="c">
+            {{ c.name }}
           </md-option>
         </md-autocomplete>
       </div>

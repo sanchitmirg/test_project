@@ -13,6 +13,9 @@ export class ScheduleComponent implements OnInit {
 
   filteredPatients: any[];
   patients: any[];
+
+  consultants: any[]=[];
+  filteredConsultants: any[];
   
   constructor(
     public dialogRef: MdDialogRef<ScheduleComponent>,
@@ -22,6 +25,7 @@ export class ScheduleComponent implements OnInit {
 
   ngOnInit() {
     this.loadPatient()
+    this.loadConsultant()
   }
 
   cancel(){
@@ -31,27 +35,50 @@ export class ScheduleComponent implements OnInit {
   filterPatients = (filterTerm: string) => {
     const filterText: string = filterTerm.toLowerCase();
     this.filteredPatients = this.patients.filter((e: any) => {
-      return (!filterText || e.client_name.toLowerCase().indexOf(filterText.toLowerCase()) > -1);
+      return (!filterText || e.firstname.toLowerCase().indexOf(filterText.toLowerCase()) > -1);
     });
   }
 
   loadPatient(){
-    this.http.get(this.api.BASE_URL+'consultantDetails')
-    .map((res:Response)=> res.json()['_embedded']['consultantDetails'])
+    console.log("inside loadpatient function")
+    this.http.get(this.api.BASE_URL+'patientDetails')
+    .map((res:Response)=> res.json()['_embedded']['patientDetails'])
     .subscribe((data)=>{
       this.patients = data;
-      console.log("The consultant list is", data)
+      console.log("The patient list is", data)
       this.filteredPatients = this.patients;
       
     })
   }
 
   displayPatientName(data:any){
-    return data ? data.name : data;
+    console.log("Inside display fucntion",data)
+    return data ? data.firstname : data;
   }
 
   save(){
     
   }
 
+  loadConsultant(){
+    this.http.get(this.api.BASE_URL+'consultantDetails')
+    .map((res:Response)=> res.json()['_embedded']['consultantDetails'])
+    .subscribe((data)=>{
+      this.consultants = data;
+      console.log("The consultant list is", data)
+      this.filteredConsultants = this.consultants;
+      
+    })
+  }
+
+  filterConsultants = (filterTerm: string) => {
+    const filterText: string = filterTerm.toLowerCase();
+    this.filteredConsultants = this.consultants.filter((e: any) => {
+      return (!filterText || e.name.toLowerCase().indexOf(filterText.toLowerCase()) > -1);
+    });
+  }
+  
+  displayName(data){
+    return data ? data.name : data;
+  }
 }
